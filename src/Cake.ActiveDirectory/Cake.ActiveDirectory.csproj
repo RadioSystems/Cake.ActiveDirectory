@@ -77,7 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ActiveDirectoryAliases.cs" />
+    <Compile Include="ActiveDirectoryService.cs" />
+    <Compile Include="UserAttributeSettings.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="IActiveDirectoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
