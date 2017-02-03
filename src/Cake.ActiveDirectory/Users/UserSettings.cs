@@ -46,11 +46,6 @@ namespace Cake.ActiveDirectory.Users {
         public string Department { get; set; }
 
         /// <summary>
-        /// The user's division in the organization.
-        /// </summary>
-        public string Division { get; set; }
-
-        /// <summary>
         /// The user's telephone number.
         /// </summary>
         public string PhoneNumber { get; set; }
@@ -68,13 +63,8 @@ namespace Cake.ActiveDirectory.Users {
         /// <summary>
         /// The user's email address.
         /// </summary>
-        public string EMailAddress { get; set; }
-
-        /// <summary>
-        /// The user's target email address.
-        /// </summary>
-        public string TargetAddress { get; set; }
-
+        public string Email { get; set; }
+        
         /// <summary>
         /// The path to the user's home directory.
         /// </summary>
@@ -84,11 +74,6 @@ namespace Cake.ActiveDirectory.Users {
         /// The user's home drive letter.
         /// </summary>
         public string HomeDrive { get; set; }
-
-        /// <summary>
-        /// The user's home page URL.
-        /// </summary>
-        public string HomePage { get; set; }
 
         /// <summary>
         /// Gets or sets if password needs changed on next logon.

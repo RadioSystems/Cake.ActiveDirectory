@@ -1,19 +1,22 @@
 ﻿using System;
-using Galactic.ActiveDirectory;
+using System.Linq;
+using Landpy.ActiveDirectory.Core;
+using Landpy.ActiveDirectory.Core.Filter.Expression;
+using Landpy.ActiveDirectory.Entity.Object;
 
 namespace Cake.ActiveDirectory.Users {
     /// <summary>
     /// The User service for working with Active Directory Users
     /// </summary>
     public sealed class UserService : ActiveDirectoryService<UserSettings> {
+        private readonly IADOperator _adOperator;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserService"/> class.
         /// </summary>
-        /// <param name="domainName">The AD domain.</param>
-        /// <param name="userName">The AD userName.</param>
-        /// <param name="password">The AD password.</param>
-        public UserService(string domainName, string userName, string password) : base(domainName, userName, password) {
-
+        /// <param name="adOperator">The Active Directory.</param>
+        public UserService(IADOperator adOperator) {
+            _adOperator = adOperator;
         }
 
         /// <summary>
@@ -21,7 +24,7 @@ namespace Cake.ActiveDirectory.Users {
         /// </summary>
         /// <param name="samAccountName">The SAM account name.</param>
         /// <param name="ouDistinguishedName">The OU distinguished name.</param>
-        /// <param name="settings">The user attribute settings.</param>
+        /// <param name="settings">The user settings.</param>
         public void AddUser(string samAccountName, string ouDistinguishedName, UserSettings settings) {
             if (string.IsNullOrWhiteSpace(samAccountName)) {
                 throw new ArgumentNullException(nameof(samAccountName));
@@ -32,27 +35,35 @@ namespace Cake.ActiveDirectory.Users {
             if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
             }
-
-            User.Create(CurrentActiveDirectory, samAccountName, ouDistinguishedName, settings.ToDirectoryAttributes());
+            using (var organizationUnit = OrganizationalUnitObject.FindOneByDN(_adOperator, ouDistinguishedName))
+            using (var user = organizationUnit.AddUser(samAccountName))
+            {
+                user.Save();
+            }
         }
 
         /// <summary>
         /// Updates a user account given the specified properties.
         /// </summary>
-        /// <param name="employeeId">The employee id.</param>
-        /// <param name="settings">The user attribute settings.</param>
-        public void UpdateUser(string employeeId, UserSettings settings) {
-            if (string.IsNullOrWhiteSpace(employeeId)) {
-                throw new ArgumentNullException(nameof(employeeId));
+        /// <param name="attributeName">The name of the attribute to search by.</param>
+        /// <param name="attributeValue">The value of the attribute to search using.</param>
+        /// <param name="settings">The user settings.</param>
+        public void UpdateUser(string attributeName, string attributeValue, UserSettings settings) {
+            if (string.IsNullOrWhiteSpace(attributeName)) {
+                throw new ArgumentNullException(nameof(attributeName));
+            }
+            if (string.IsNullOrWhiteSpace(attributeValue))
+            {
+                throw new ArgumentNullException(nameof(attributeValue));
             }
             if (settings != null) {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var user = new User(CurrentActiveDirectory, CurrentActiveDirectory.GetGUIDByEmployeeNumber(employeeId));
+            var user = UserObject.FindAll(_adOperator, new Is(attributeName, attributeValue)).SingleOrDefault();
 
             if (!string.IsNullOrWhiteSpace(settings.FirstName)) {
-                user.FirstName = settings.FirstName;
+                user.GivenName = settings.FirstName;
             }
 
             if (!string.IsNullOrWhiteSpace(settings.LastName)) {
@@ -64,7 +75,7 @@ namespace Cake.ActiveDirectory.Users {
             }
 
             if (!string.IsNullOrWhiteSpace(settings.Title)) {
-                user.Title = settings.Title;
+                user.JobTitle = settings.Title;
             }
 
             if (!string.IsNullOrWhiteSpace(settings.Manager)) {
@@ -75,12 +86,8 @@ namespace Cake.ActiveDirectory.Users {
                 user.Department = settings.Department;
             }
 
-            if (!string.IsNullOrWhiteSpace(settings.Division)) {
-                user.Division = settings.Division;
-            }
-
             if (!string.IsNullOrWhiteSpace(settings.PhoneNumber)) {
-                user.PhoneNumber = settings.PhoneNumber;
+                user.Telephone = settings.PhoneNumber;
             }
 
             if (!string.IsNullOrWhiteSpace(settings.StreetAddress)) {
@@ -91,25 +98,19 @@ namespace Cake.ActiveDirectory.Users {
                 user.Description = settings.Description;
             }
 
-            if (!string.IsNullOrWhiteSpace(settings.EMailAddress)) {
-                user.EMailAddress = settings.EMailAddress;
-            }
-
-            if (!string.IsNullOrWhiteSpace(settings.TargetAddress)) {
-                user.TargetAddress = settings.TargetAddress;
+            if (!string.IsNullOrWhiteSpace(settings.Email)) {
+                user.Email = settings.Email;
             }
 
             if (!string.IsNullOrWhiteSpace(settings.HomeDirectory)) {
-                user.HomeDirectory = settings.HomeDirectory;
+                user.SetAttributeValue("homeDirectory", settings.HomeDirectory);
             }
 
             if (!string.IsNullOrWhiteSpace(settings.HomeDrive)) {
-                user.HomeDrive = settings.HomeDrive;
+                user.SetAttributeValue("homeDrive", settings.HomeDrive);
             }
 
-            if (!string.IsNullOrWhiteSpace(settings.HomePage)) {
-                user.HomePage = settings.HomePage;
-            }
+            user.IsMustChangePwdNextLogon = settings.MustChangePasswordNextLogon;
         }
     }
 }

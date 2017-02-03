@@ -36,32 +36,8 @@
       <HintPath>..\packages\Cake.Core.0.17.0\lib\net45\Cake.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DnDns, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.ActiveDirectory.1.3.0.134\lib\DnDns.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Galactic.ActiveDirectory, Version=1.3.0.134, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.ActiveDirectory.1.3.0.134\lib\Galactic.ActiveDirectory.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Galactic.Configuration, Version=1.3.0.134, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.Configuration.1.3.0.134\lib\Galactic.Configuration.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Galactic.Cryptography, Version=1.3.0.134, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.Cryptography.1.3.0.134\lib\Galactic.Cryptography.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Galactic.EventLog, Version=1.3.0.134, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.EventLog.1.3.0.134\lib\Galactic.EventLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Galactic.FileSystem, Version=1.3.0.134, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.FileSystem.1.3.0.134\lib\Galactic.FileSystem.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Galactic.LDAP, Version=1.3.0.134, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Galactic.LDAP.1.3.0.134\lib\Galactic.LDAP.dll</HintPath>
+    <Reference Include="Landpy.ActiveDirectory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4769fd3a76ed42d0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Landpy.ActiveDirectory.1.0.0.6\lib\Landpy.ActiveDirectory.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,7 +57,6 @@
     <Compile Include="ActiveDirectoryService.cs" />
     <Compile Include="ActiveDirectorySettings.cs" />
     <Compile Include="Users\UserSettings.cs" />
-    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UserService.cs" />
   </ItemGroup>
