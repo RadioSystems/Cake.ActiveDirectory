@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveDirectoryAliasesTests.cs" />
-    <Compile Include="ActiveDirectoryTests.cs" />
+    <Compile Include="UserServiceTests.cs" />
     <Compile Include="DataConvention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

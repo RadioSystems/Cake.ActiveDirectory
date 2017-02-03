@@ -1,4 +1,4 @@
 ﻿namespace Cake.ActiveDirectory.Tests {
-    public class ActiveDirectoryTests {
+    public class UserServiceTests {
     }
 }
