@@ -15,7 +15,7 @@ namespace Cake.ActiveDirectory {
         /// </summary>
         /// <example>
         /// <code>
-        ///     AddUser("cake-user", "cake-group", new UserSettings { 
+        ///     CreateUser("cake-user", "cake-group", new UserSettings { 
         ///         LoginName = "domainAdmin", 
         ///         Password = "adminPassword", 
         ///         DomainName = "Cake.net"});
@@ -26,7 +26,7 @@ namespace Cake.ActiveDirectory {
         /// <param name="ouDistinguishedName">The distinguished name of the OU.</param>
         /// <param name="settings">The user settings.</param>
         [CakeMethodAlias]
-        [CakeAliasCategory("AddUser")]
+        [CakeAliasCategory("CreateUser")]
         [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
         public static void AddUser(this ICakeContext context, string samAccountName, string ouDistinguishedName,
             UserSettings settings) {
@@ -43,8 +43,8 @@ namespace Cake.ActiveDirectory {
                 throw new ArgumentNullException(nameof(settings));
             }
            
-            var userService = new UserService(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
-            userService.AddUser(samAccountName, ouDistinguishedName, settings);
+            var userCreate = new UserCreate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            userCreate.CreateUser(samAccountName, ouDistinguishedName, settings);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Cake.ActiveDirectory {
         /// </summary>
         /// <example>
         /// <code>
-        ///     AddUser("employeeId", "1234", new UserSettings { 
+        ///     UpdateUser("employeeId", "1234", new UserSettings { 
         ///         LoginName = "domainAdmin", 
         ///         Password = "adminPassword", 
         ///         DomainName = "Cake.net",
@@ -81,8 +81,8 @@ namespace Cake.ActiveDirectory {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            var userService = new UserService(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
-            userService.UpdateUser(attributeName, attributeValue, settings);
+            var userUpdate = new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            userUpdate.UpdateUser(attributeName, attributeValue, settings);
         }
     }
 }

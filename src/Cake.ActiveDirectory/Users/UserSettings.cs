@@ -2,7 +2,7 @@
 
 namespace Cake.ActiveDirectory.Users {
     /// <summary>
-    /// Contains settings used by <see cref="UserService"/>.
+    /// Contains settings used by <see cref="UserCreate"/>.
     /// </summary>
     public class UserSettings : ActiveDirectorySettings {
         /// <summary>

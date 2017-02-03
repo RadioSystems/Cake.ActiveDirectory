@@ -8,38 +8,15 @@ namespace Cake.ActiveDirectory.Users {
     /// <summary>
     /// The User service for working with Active Directory Users
     /// </summary>
-    public sealed class UserService : ActiveDirectoryService<UserSettings> {
+    public sealed class UserUpdate : ActiveDirectoryBase<UserSettings> {
         private readonly IADOperator _adOperator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserService"/> class.
+        /// Initializes a new instance of the <see cref="UserUpdate"/> class.
         /// </summary>
         /// <param name="adOperator">The Active Directory.</param>
-        public UserService(IADOperator adOperator) {
+        public UserUpdate(IADOperator adOperator) {
             _adOperator = adOperator;
-        }
-
-        /// <summary>
-        /// Creates an Active Directory user given the specified properties.
-        /// </summary>
-        /// <param name="samAccountName">The SAM account name.</param>
-        /// <param name="ouDistinguishedName">The OU distinguished name.</param>
-        /// <param name="settings">The user settings.</param>
-        public void AddUser(string samAccountName, string ouDistinguishedName, UserSettings settings) {
-            if (string.IsNullOrWhiteSpace(samAccountName)) {
-                throw new ArgumentNullException(nameof(samAccountName));
-            }
-            if (string.IsNullOrWhiteSpace(ouDistinguishedName)) {
-                throw new ArgumentNullException(nameof(ouDistinguishedName));
-            }
-            if (settings == null) {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            using (var organizationUnit = OrganizationalUnitObject.FindOneByDN(_adOperator, ouDistinguishedName))
-            using (var user = organizationUnit.AddUser(samAccountName))
-            {
-                user.Save();
-            }
         }
 
         /// <summary>
@@ -52,8 +29,7 @@ namespace Cake.ActiveDirectory.Users {
             if (string.IsNullOrWhiteSpace(attributeName)) {
                 throw new ArgumentNullException(nameof(attributeName));
             }
-            if (string.IsNullOrWhiteSpace(attributeValue))
-            {
+            if (string.IsNullOrWhiteSpace(attributeValue)) {
                 throw new ArgumentNullException(nameof(attributeValue));
             }
             if (settings != null) {
@@ -101,15 +77,8 @@ namespace Cake.ActiveDirectory.Users {
             if (!string.IsNullOrWhiteSpace(settings.Email)) {
                 user.Email = settings.Email;
             }
-
-            if (!string.IsNullOrWhiteSpace(settings.HomeDirectory)) {
-                user.SetAttributeValue("homeDirectory", settings.HomeDirectory);
-            }
-
-            if (!string.IsNullOrWhiteSpace(settings.HomeDrive)) {
-                user.SetAttributeValue("homeDrive", settings.HomeDrive);
-            }
-
+            user.SetAttributeIfNotNull("homeDirectory", settings.HomeDirectory);
+            user.SetAttributeIfNotNull("homeDrive", settings.HomeDrive);
             user.IsMustChangePwdNextLogon = settings.MustChangePasswordNextLogon;
         }
     }

@@ -42,6 +42,10 @@
       <HintPath>..\packages\Fixie.1.0.2\lib\net45\Fixie.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Landpy.ActiveDirectory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4769fd3a76ed42d0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Landpy.ActiveDirectory.1.0.0.6\lib\Landpy.ActiveDirectory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
@@ -65,7 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveDirectoryAliasesTests.cs" />
-    <Compile Include="UserServiceTests.cs" />
+    <Compile Include="Fixture\UserCreateFixture.cs" />
+    <Compile Include="Fixture\UserUpdateFixture.cs" />
+    <Compile Include="UserCreateTests.cs" />
     <Compile Include="DataConvention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
