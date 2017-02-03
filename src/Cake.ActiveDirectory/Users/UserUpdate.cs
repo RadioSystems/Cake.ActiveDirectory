@@ -32,7 +32,7 @@ namespace Cake.ActiveDirectory.Users {
             if (string.IsNullOrWhiteSpace(attributeValue)) {
                 throw new ArgumentNullException(nameof(attributeValue));
             }
-            if (settings != null) {
+            if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
             }
 

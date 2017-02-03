@@ -74,6 +74,7 @@
     <Compile Include="UserCreateTests.cs" />
     <Compile Include="DataConvention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserUpdateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

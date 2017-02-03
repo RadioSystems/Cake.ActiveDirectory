@@ -47,15 +47,18 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("ouDistinguishedName");
         }
 
-        public void Should_Create_User() {
-            //Given
-            var adOperator = Substitute.For<IADOperator>();
-            var fixture = new UserCreateFixture(adOperator);
+        //public void Should_Create_User() {
+        //    //Given
+        //    var adOperator = Substitute.For<IADOperator>();
+        //    adOperator.GetOperatorInfo()
+        //        .Returns(new ADOperatorInfo {UserLoginName = "admin", Password = "admin", OperateDomainName = "test"});
+        //    var fixture = new UserCreateFixture(adOperator);
 
-            // When
-            //fixture.CreateUser();
+        //    // When
+        //    fixture.CreateUser();
 
-            // Then
-        }
+        //    // Then
+        //    adOperator.ReceivedCalls().Count().ShouldBeGreaterThan(0);
+        //}
     }
 }
