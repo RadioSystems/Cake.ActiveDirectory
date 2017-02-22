@@ -84,5 +84,37 @@ namespace Cake.ActiveDirectory {
             var userUpdate = new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
             userUpdate.UpdateUser(attributeName, attributeValue, settings);
         }
+
+        /// <summary>
+        /// Finds User Principal Name by Proxy Address.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     var upn = FindUserPrincipalNameByProxyAddress("jdoe@example.com", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="proxyAddress">The proxy address to search.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>User Principal Name</returns>
+        [CakeMethodAlias]
+        [CakeAliasCategory("FindUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static string FindUserPrincipalNameByProxyAddress(this ICakeContext context, string proxyAddress, UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (string.IsNullOrWhiteSpace(proxyAddress)) {
+                throw new ArgumentNullException(nameof(proxyAddress));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            return userFind.GetUserPrincipalNameFromProxyAddress(proxyAddress);
+        }
     }
 }

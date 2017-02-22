@@ -125,5 +125,46 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
         }
     }
+
+    public sealed class FindUserPrincipalNameByProxyAddressAliasesTests {
+        public void Should_Throw_If_Context_Is_Null() {
+            // Given
+            var proxyAddress = "jdoe@example.com";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProxyAddress(
+                null, proxyAddress, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
+        }
+
+        public void Should_Throw_If_ProxyAddress_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProxyAddress(
+              context, null, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("proxyAddress");
+        }
+        
+        public void Should_Throw_If_Settings_Are_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var proxyAddress = "jdoe@example.com";
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProxyAddress(
+                context, proxyAddress, null));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
+        }
+    }
 }
 

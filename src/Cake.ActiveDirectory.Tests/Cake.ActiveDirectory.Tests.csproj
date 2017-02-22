@@ -70,10 +70,12 @@
   <ItemGroup>
     <Compile Include="ActiveDirectoryAliasesTests.cs" />
     <Compile Include="Fixture\UserCreateFixture.cs" />
+    <Compile Include="Fixture\UserFindFixture.cs" />
     <Compile Include="Fixture\UserUpdateFixture.cs" />
     <Compile Include="UserCreateTests.cs" />
     <Compile Include="DataConvention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserFindTests.cs" />
     <Compile Include="UserUpdateTests.cs" />
   </ItemGroup>
   <ItemGroup>
