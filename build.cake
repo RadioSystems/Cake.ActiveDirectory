@@ -12,9 +12,8 @@ var configuration = Argument("configuration", "Release");
 var isLocalBuild = !Jenkins.IsRunningOnJenkins;
 var solution = "./src/Cake.ActiveDirectory.sln";
 var artifactsDir = Directory("./artifacts");
-
 var version = "0.1.0";
-var semVersion = isLocalBuild ? version : string.Concat(version, "-build-", Jenkins.Environment.Build.BuildNumber.ToString("0000"));
+var semVersion = isLocalBuild ? version : string.Concat(version, ".", Jenkins.Environment.Build.BuildNumber.ToString("0000"));
 var assemblyInfo = ParseAssemblyInfo("./src/Cake.ActiveDirectory/Properties/AssemblyInfo.cs");
 
 EnsureDirectoryExists(artifactsDir);
@@ -72,10 +71,11 @@ Task("Package")
             RequireLicenseAcceptance = false,
             Symbols =  false,
             NoPackageAnalysis = true,
-            Files = new []{
+            Files = new [] {
                 new NuSpecContent {Source = "Cake.ActiveDirectory.dll", Target="lib/net45/Cake.ActiveDirectory.dll"},
-                new NuSpecContent {Source = "Cake.ActiveDirectory.xml", Target="lib/net45/Cake.ActiveDirectory.xml"}
-            },
+                new NuSpecContent {Source = "Cake.ActiveDirectory.xml", Target="lib/net45/Cake.ActiveDirectory.xml"},
+                new NuSpecContent {Source = "Landpy.ActiveDirectory.dll", Target="lib/net45/Landpy.ActiveDirectory.dll"}
+            }
             BasePath = "./src/Cake.ActiveDirectory/bin/" + configuration,
             OutputDirectory = artifactsDir
         };      
