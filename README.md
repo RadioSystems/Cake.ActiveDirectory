@@ -13,7 +13,7 @@ This Addin only contains the functionality that we needed.  We are more than hap
 
 ```
 //Beta version
-#adding nuget:https://www.myget.org/F/beta-builds/api/v2?package=Cake.ActiveDirectory 
+#addin nuget:https://www.myget.org/F/beta-builds/api/v2?package=Cake.ActiveDirectory 
 
 // Release version
 // Coming soon....
