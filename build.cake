@@ -1,4 +1,5 @@
 #tool nuget:?package=Fixie
+#tool nuget:?package=ilmerge
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -9,6 +10,7 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
+var buildDir = Directory("./src/Cake.ActiveDirectory/bin") + Directory(configuration);
 var solution = "./src/Cake.ActiveDirectory.sln";
 var artifactsDir = Directory("./artifacts");
 var assemblyInfo = ParseAssemblyInfo("./src/Cake.ActiveDirectory/Properties/AssemblyInfo.cs");
@@ -50,7 +52,6 @@ Task("Unit-Tests")
             NUnitXml = "TestResult.xml"
         });
 });
-
 
 Task("Package")
     .IsDependentOn("Unit-Tests")
@@ -104,7 +105,7 @@ Task("Deploy")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Unit-Tests");
+    .IsDependentOn("Deploy");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
