@@ -9,12 +9,10 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
-var isLocalBuild = !Jenkins.IsRunningOnJenkins;
 var solution = "./src/Cake.ActiveDirectory.sln";
 var artifactsDir = Directory("./artifacts");
-var version = "0.1.0";
-var semVersion = isLocalBuild ? version : string.Concat(version, ".", Jenkins.Environment.Build.BuildNumber.ToString("0000"));
 var assemblyInfo = ParseAssemblyInfo("./src/Cake.ActiveDirectory/Properties/AssemblyInfo.cs");
+var version = assemblyInfo.AssemblyVersion; 
 
 EnsureDirectoryExists(artifactsDir);
 //////////////////////////////////////////////////////////////////////
@@ -59,7 +57,7 @@ Task("Package")
     .Does(() => {
         var nugetPackSettings = new NuGetPackSettings {
             Id = assemblyInfo.Product,
-            Version = semVersion,
+            Version = version,
             Title = assemblyInfo.Title,
             Authors = new []{assemblyInfo.Company},
             Owners = new []{assemblyInfo.Company},
@@ -67,7 +65,7 @@ Task("Package")
             ProjectUrl = new Uri("https://github.com/RadioSystems/Cake.ActiveDirectory"),
             LicenseUrl = new Uri("https://github.com/RadioSystems/Cake.ActiveDirectory/blob/master/LICENSE"),
             Copyright = assemblyInfo.Copyright,
-            Tags = new []{"Cake", "ActiveDirectory", "AD"},
+            Tags = new []{"Cake", "Active Directory", "AD"},
             RequireLicenseAcceptance = false,
             Symbols =  false,
             NoPackageAnalysis = true,
@@ -75,7 +73,7 @@ Task("Package")
                 new NuSpecContent {Source = "Cake.ActiveDirectory.dll", Target="lib/net45/Cake.ActiveDirectory.dll"},
                 new NuSpecContent {Source = "Cake.ActiveDirectory.xml", Target="lib/net45/Cake.ActiveDirectory.xml"},
                 new NuSpecContent {Source = "Landpy.ActiveDirectory.dll", Target="lib/net45/Landpy.ActiveDirectory.dll"}
-            }
+            },
             BasePath = "./src/Cake.ActiveDirectory/bin/" + configuration,
             OutputDirectory = artifactsDir
         };      
@@ -85,9 +83,20 @@ Task("Package")
 
 Task("Deploy")
     .IsDependentOn("Package")
-    .WithCriteria(()=> Jenkins.IsRunningOnJenkins)
+    .WithCriteria(()=> AppVeyor.IsRunningOnAppVeyor)
     .Does(() => {
-     
+        var apiKey = EnvironmentVariable("NUGET_API_KEY");
+        if(string.IsNullOrEmpty(apiKey)) {
+            throw new InvalidOperationException("Could not resolve Nuget API key.");
+        }
+
+        // Push the package.
+        var package = "./src/artifacts/Cake.ActiveDirectory." + version + ".nupkg";
+
+        NuGetPush(package, new NuGetPushSettings { 
+            Source = "https://api.nuget.org/v3/index.json",
+            ApiKey = apiKey
+        });
 });
 
 //////////////////////////////////////////////////////////////////////
