@@ -16,7 +16,7 @@ This Addin only contains the functionality that we needed.  We are more than hap
 #addin nuget:https://www.myget.org/F/beta-builds/api/v2?package=Cake.ActiveDirectory 
 
 // Release version
-// Coming soon....
+[![Build status](https://ci.appveyor.com/api/projects/status/pk0oc2np3atoqt4s?svg=true)](https://ci.appveyor.com/project/RadioSystems/cake-activedirectory)
 ```
 
 ### Creating a user
@@ -41,7 +41,7 @@ UpdateUser("employeeId", "1234", new UserSettings {
 ### Getting a user's UPN from their email address.
 
 ```
-var upn = FindUserPrincipalNameByProxyAddress("jdoe@example.com", new UserSettings { 
+var upn = FindUserPrincipalNameByProperty("proxyAddresses", "jdoe@example.com", new UserSettings { 
             LoginName = "domainAdmin", 
             Password = "adminPassword", 
             DomainName = "Cake.net" });
