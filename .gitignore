@@ -250,3 +250,9 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Project Specific
+.vs/
+artifacts/
+tools/*
+!tools/packages.config
