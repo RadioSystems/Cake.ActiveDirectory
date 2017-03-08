@@ -86,35 +86,39 @@ namespace Cake.ActiveDirectory {
         }
 
         /// <summary>
-        /// Finds User Principal Name by Proxy Address.
+        /// Finds User Principal Name by Property Value.
         /// </summary>
         /// <example>
         /// <code>
-        ///     var upn = FindUserPrincipalNameByProxyAddress("jdoe@example.com", new UserSettings { 
+        ///     var upn = FindUserByProperty("proxyAddresses", "jdoe@example.com", new UserSettings { 
         ///         LoginName = "domainAdmin", 
         ///         Password = "adminPassword", 
         ///         DomainName = "Cake.net" });
         /// </code>
         /// </example>
         /// <param name="context">The context.</param>
-        /// <param name="proxyAddress">The proxy address to search.</param>
+        /// <param name="propertyName">The property name to search against.</param>
+        /// <param name="propertyValue">The property value to search.</param>
         /// <param name="settings">The settings.</param>
         /// <returns>User Principal Name</returns>
         [CakeMethodAlias]
         [CakeAliasCategory("FindUser")]
         [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
-        public static string FindUserPrincipalNameByProxyAddress(this ICakeContext context, string proxyAddress, UserSettings settings) {
+        public static string FindUserByProperty(this ICakeContext context, string propertyName, string propertyValue, UserSettings settings) {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (string.IsNullOrWhiteSpace(proxyAddress)) {
-                throw new ArgumentNullException(nameof(proxyAddress));
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
             }
             if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
             }
             var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
-            return userFind.GetUserPrincipalNameFromProxyAddress(proxyAddress);
+            return userFind.FindUserByProperty(propertyName, propertyValue);
         }
     }
 }

@@ -20,15 +20,19 @@ namespace Cake.ActiveDirectory.Users {
         }
 
         /// <summary>
-        /// Gets the User Principal Name by proxy address.
+        /// Finds the User Principal Name by property.
         /// </summary>
-        /// <param name="proxyAddress">The proxy address value to search.</param>
+        /// <param name="propertyName">The property to search against.</param>
+        /// <param name="propertyValue">The property value to search.</param>
         /// <returns>User Principal Name</returns>
-        public string GetUserPrincipalNameFromProxyAddress(string proxyAddress) {
-            if (string.IsNullOrWhiteSpace(proxyAddress)) {
-                throw new ArgumentNullException(nameof(proxyAddress));
+        public string FindUserByProperty(string propertyName, string propertyValue) {
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
             }
-            return UserObject.FindAll(_adOperator, new Contains("proxyAddresses", proxyAddress)).FirstOrDefault()?.PrincipalName;
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.PrincipalName;
         }
     }
 }

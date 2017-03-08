@@ -7,17 +7,30 @@ using Should.Core.Assertions;
 
 namespace Cake.ActiveDirectory.Tests {
     public sealed class UserFindTests {
-        public void Should_Throw_If_ProxyAddress_Is_Null() {
+        public void Should_Throw_If_PropertyName_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
             var fixture = new UserFindFixture(adOperator);
-            fixture.ProxyAddress = null;
+            fixture.PropertyName = null;
 
             // When
-            var result = Record.Exception(() => fixture.FindUserByProxyAddress());
+            var result = Record.Exception(() => fixture.FindUserByProperty());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("proxyAddress");
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
+        }
+
+        public void Should_Throw_If_PropertyValue_Is_Null() {
+            // Given
+            var adOperator = Substitute.For<IADOperator>();
+            var fixture = new UserFindFixture(adOperator);
+            fixture.PropertyValue = null;
+
+            // When
+            var result = Record.Exception(() => fixture.FindUserByProperty());
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
         }
     }
 }
