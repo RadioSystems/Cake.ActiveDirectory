@@ -91,7 +91,7 @@ Task("Deploy")
         }
 
         // Push the package.
-        var package = "./src/artifacts/Cake.ActiveDirectory." + version + ".nupkg";
+        var package = "./artifacts/Cake.ActiveDirectory." + version + ".nupkg";
 
         NuGetPush(package, new NuGetPushSettings { 
             Source = "https://api.nuget.org/v3/index.json",
