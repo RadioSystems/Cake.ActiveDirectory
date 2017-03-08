@@ -90,7 +90,7 @@ namespace Cake.ActiveDirectory {
         /// </summary>
         /// <example>
         /// <code>
-        ///     var upn = FindUserByProperty("proxyAddresses", "jdoe@example.com", new UserSettings { 
+        ///     var upn = FindUserPrincipalNameByProperty("proxyAddresses", "jdoe@example.com", new UserSettings { 
         ///         LoginName = "domainAdmin", 
         ///         Password = "adminPassword", 
         ///         DomainName = "Cake.net" });
@@ -104,7 +104,7 @@ namespace Cake.ActiveDirectory {
         [CakeMethodAlias]
         [CakeAliasCategory("FindUser")]
         [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
-        public static string FindUserByProperty(this ICakeContext context, string propertyName, string propertyValue, UserSettings settings) {
+        public static string FindUserPrincipalNameByProperty(this ICakeContext context, string propertyName, string propertyValue, UserSettings settings) {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
@@ -118,7 +118,7 @@ namespace Cake.ActiveDirectory {
                 throw new ArgumentNullException(nameof(settings));
             }
             var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
-            return userFind.FindUserByProperty(propertyName, propertyValue);
+            return userFind.FindUserPrincipalNameByProperty(propertyName, propertyValue);
         }
     }
 }

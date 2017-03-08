@@ -15,8 +15,8 @@ namespace Cake.ActiveDirectory.Tests.Fixture {
             Settings = new UserSettings { LoginName = "admin", Password = "admin", DomainName = "test" };
         }
 
-        public void FindUserByProperty() {
-            _userFind.FindUserByProperty(PropertyName, PropertyValue);
+        public void FindUserPrincipalNameByProperty() {
+            _userFind.FindUserPrincipalNameByProperty(PropertyName, PropertyValue);
         }
     }
 }

@@ -134,7 +134,7 @@ namespace Cake.ActiveDirectory.Tests {
             var settings = new UserSettings();
 
             // When
-            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserByProperty(
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProperty(
                 null, propertyName, propertyValue, settings));
 
             // Then
@@ -148,7 +148,7 @@ namespace Cake.ActiveDirectory.Tests {
             var settings = new UserSettings();
 
             // When
-            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserByProperty(
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProperty(
               context, null, propertyValue, settings));
 
             // Then
@@ -162,7 +162,7 @@ namespace Cake.ActiveDirectory.Tests {
             var settings = new UserSettings();
 
             // When
-            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserByProperty(
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProperty(
                 context, propertyName, null, settings));
 
             // Then
@@ -176,7 +176,7 @@ namespace Cake.ActiveDirectory.Tests {
             var propertyValue = "jdoe@example.com";
 
             // When
-            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserByProperty(
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProperty(
                 context, propertyName, propertyValue, null));
 
             // Then

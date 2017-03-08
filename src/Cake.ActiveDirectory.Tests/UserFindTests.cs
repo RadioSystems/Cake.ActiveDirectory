@@ -14,7 +14,7 @@ namespace Cake.ActiveDirectory.Tests {
             fixture.PropertyName = null;
 
             // When
-            var result = Record.Exception(() => fixture.FindUserByProperty());
+            var result = Record.Exception(() => fixture.FindUserPrincipalNameByProperty());
 
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
@@ -27,7 +27,7 @@ namespace Cake.ActiveDirectory.Tests {
             fixture.PropertyValue = null;
 
             // When
-            var result = Record.Exception(() => fixture.FindUserByProperty());
+            var result = Record.Exception(() => fixture.FindUserPrincipalNameByProperty());
 
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");

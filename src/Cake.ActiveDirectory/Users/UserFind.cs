@@ -25,7 +25,7 @@ namespace Cake.ActiveDirectory.Users {
         /// <param name="propertyName">The property to search against.</param>
         /// <param name="propertyValue">The property value to search.</param>
         /// <returns>User Principal Name</returns>
-        public string FindUserByProperty(string propertyName, string propertyValue) {
+        public string FindUserPrincipalNameByProperty(string propertyName, string propertyValue) {
             if (string.IsNullOrWhiteSpace(propertyName)) {
                 throw new ArgumentNullException(nameof(propertyName));
             }
