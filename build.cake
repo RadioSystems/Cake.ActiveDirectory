@@ -14,6 +14,7 @@ var solution = "./src/Cake.ActiveDirectory.sln";
 var artifactsDir = Directory("./artifacts");
 var assemblyInfo = ParseAssemblyInfo("./src/Cake.ActiveDirectory/Properties/AssemblyInfo.cs");
 var version = assemblyInfo.AssemblyVersion; 
+var isMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("master", buildSystem.AppVeyor.Environment.Repository.Branch);
 
 EnsureDirectoryExists(artifactsDir);
 //////////////////////////////////////////////////////////////////////
@@ -84,6 +85,7 @@ Task("Package")
 Task("Deploy")
     .IsDependentOn("Package")
     .WithCriteria(()=> AppVeyor.IsRunningOnAppVeyor)
+    .WithCriteria(()=> isMasterBranch)
     .Does(() => {
         var apiKey = EnvironmentVariable("NUGET_API_KEY");
         if(string.IsNullOrEmpty(apiKey)) {
@@ -91,7 +93,7 @@ Task("Deploy")
         }
 
         // Push the package.
-        var package = "./src/artifacts/Cake.ActiveDirectory." + version + ".nupkg";
+        var package = "./artifacts/Cake.ActiveDirectory." + version + ".nupkg";
 
         NuGetPush(package, new NuGetPushSettings { 
             Source = "https://api.nuget.org/v3/index.json",
