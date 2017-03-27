@@ -17,7 +17,7 @@ This Addin only contains the functionality that we needed.  We are more than hap
 #addin nuget:https://www.myget.org/F/beta-builds/api/v2?package=Cake.ActiveDirectory 
 
 // Release version
-#addin nuget?package=Cake.ActiveDirectory
+#addin nuget:?package=Cake.ActiveDirectory 
 ```
 
 ### Creating a user
