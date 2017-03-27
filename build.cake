@@ -14,7 +14,7 @@ var solution = "./src/Cake.ActiveDirectory.sln";
 var artifactsDir = Directory("./artifacts");
 var assemblyInfo = ParseAssemblyInfo("./src/Cake.ActiveDirectory/Properties/AssemblyInfo.cs");
 var version = assemblyInfo.AssemblyVersion; 
-var isMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("master", buildSystem.AppVeyor.Environment.Repository.Branch);
+var isMasterBranch = StringComparer.OrdinalIgnoreCase.Equals("master", AppVeyor.Environment.Repository.Branch);
 
 EnsureDirectoryExists(artifactsDir);
 //////////////////////////////////////////////////////////////////////
