@@ -183,5 +183,139 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
         }
     }
+
+    public sealed class FindDistinguishedNameByProxyAddressAliasesTests {
+        public void Should_Throw_If_Context_Is_Null() {
+            // Given
+            var propertyName = "proxyAddresses";
+            var propertyValue = "jdoe@example.com";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindDistinguishedNameByProperty(
+                null, propertyName, propertyValue, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
+        }
+
+        public void Should_Throw_If_PropertyName_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyValue = "jdoe@example.com";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindDistinguishedNameByProperty(
+              context, null, propertyValue, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
+        }
+
+        public void Should_Throw_If_PropertyValue_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyName = "proxyAddresses";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindDistinguishedNameByProperty(
+                context, propertyName, null, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
+        }
+
+        public void Should_Throw_If_Settings_Are_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyName = "proxyAddresses";
+            var propertyValue = "jdoe@example.com";
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindDistinguishedNameByProperty(
+                context, propertyName, propertyValue, null));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
+        }
+    }
+
+    public sealed class FindAttributeValueByProxyAddressAliasesTests {
+        public void Should_Throw_If_Context_Is_Null() {
+            // Given
+            var propertyName = "proxyAddresses";
+            var propertyValue = "jdoe@example.com";
+            var attributeName = "distinguishedName";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindAttributeValueByProperty(
+                null, propertyName, propertyValue, attributeName, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
+        }
+
+        public void Should_Throw_If_PropertyName_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyValue = "jdoe@example.com";
+            var attributeName = "distinguishedName";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindAttributeValueByProperty(
+              context, null, propertyValue, attributeName, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
+        }
+
+        public void Should_Throw_If_PropertyValue_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyName = "proxyAddresses";
+            var attributeName = "distinguishedName";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindAttributeValueByProperty(
+                context, propertyName, null, attributeName, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
+        }
+
+        public void Should_Throw_If_AttributeName_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyName = "proxyAddresses";
+            var propertyValue = "jdoe@example.com";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindAttributeValueByProperty(
+                context, propertyName, propertyValue, null, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeName");
+        }
+
+        public void Should_Throw_If_Settings_Are_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyName = "proxyAddresses";
+            var propertyValue = "jdoe@example.com";
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.FindUserPrincipalNameByProperty(
+                context, propertyName, propertyValue, null));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
+        }
+    }
 }
 

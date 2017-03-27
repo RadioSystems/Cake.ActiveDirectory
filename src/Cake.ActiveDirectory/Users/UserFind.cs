@@ -34,5 +34,41 @@ namespace Cake.ActiveDirectory.Users {
             }
             return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.PrincipalName;
         }
+
+        /// <summary>
+        /// Finds the Distinguished Name by property.
+        /// </summary>
+        /// <param name="propertyName">The property to search against.</param>
+        /// <param name="propertyValue">The property value to search.</param>
+        /// <returns>Distinguished Name</returns>
+        public string FindDistinguishedNameByProperty(string propertyName, string propertyValue) {
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.DistinguishedName;
+        }
+
+        /// <summary>
+        /// Finds the attribute value by property.
+        /// </summary>
+        /// <param name="propertyName">The property to search against.</param>
+        /// <param name="propertyValue">The property value to search.</param>
+        /// <param name="attributeName">The attribute name of the value to get.</param>
+        /// <returns>Attribute Value</returns>
+        public string FindAttributeValueByProperty(string propertyName, string propertyValue, string attributeName) {
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+            if (string.IsNullOrWhiteSpace(attributeName)) {
+                throw new ArgumentNullException(nameof(attributeName));
+            }
+            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.GetAttributeValue<string>(attributeName);
+        }
     }
 }
