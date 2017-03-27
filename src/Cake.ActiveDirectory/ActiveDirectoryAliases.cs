@@ -120,5 +120,81 @@ namespace Cake.ActiveDirectory {
             var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
             return userFind.FindUserPrincipalNameByProperty(propertyName, propertyValue);
         }
+
+        /// <summary>
+        /// Finds Distinguished Name by Property Value.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     var distinguishedName = FindDistinguishedNameByProperty("proxyAddresses", "jdoe@example.com", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyName">The property name to search against.</param>
+        /// <param name="propertyValue">The property value to search.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>Distinguished Name</returns>
+        [CakeMethodAlias]
+        [CakeAliasCategory("FindUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static string FindDistinguishedNameByProperty(this ICakeContext context, string propertyName, string propertyValue, UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            return userFind.FindDistinguishedNameByProperty(propertyName, propertyValue);
+        }
+
+        /// <summary>
+        /// Finds attribute value by Property Value.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     var distinguishedName = FindDistinguishedNameByProperty("proxyAddresses", "jdoe@example.com", "distinguishedName", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyName">The property name to search against.</param>
+        /// <param name="propertyValue">The property value to search.</param>
+        /// <param name="attributeName">The attribute name of the value to get.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>Attribute value.</returns>
+        [CakeMethodAlias]
+        [CakeAliasCategory("FindUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static string FindAttributeValueByProperty(this ICakeContext context, string propertyName, string propertyValue, string attributeName, UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+            if (string.IsNullOrWhiteSpace(attributeName)) {
+                throw new ArgumentNullException(nameof(attributeName));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            return userFind.FindAttributeValueByProperty(propertyName, propertyValue, attributeName);
+        }
     }
 }
