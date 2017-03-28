@@ -256,3 +256,4 @@ paket-files/
 artifacts/
 tools/*
 !tools/packages.config
+BuildArtifacts
