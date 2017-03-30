@@ -80,6 +80,7 @@ namespace Cake.ActiveDirectory.Users {
             user.SetAttributeIfNotNull("homeDirectory", settings.HomeDirectory);
             user.SetAttributeIfNotNull("homeDrive", settings.HomeDrive);
             user.IsMustChangePwdNextLogon = settings.MustChangePasswordNextLogon;
+            user.Save();
         }
     }
 }
