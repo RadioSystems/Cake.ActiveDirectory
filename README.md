@@ -18,7 +18,7 @@ Cake Addin for working with Active Directory.
 
 ## Code Coverage
 
-[![Coverage Status](https://coveralls.io/repos/github/Cake.ActiveDirectory/Cake.ActiveDirectory/badge.svg?branch=develop)](https://coveralls.io/github/radiosystems/Cake.ActiveDirectory?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/RadioSystems/Cake.ActiveDirectory/badge.svg?branch=develop)](https://coveralls.io/github/RadioSystems/Cake.ActiveDirectory?branch=develop)
 
 ## Quick Links
 
