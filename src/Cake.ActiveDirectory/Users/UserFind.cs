@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Landpy.ActiveDirectory.Core;
 using Landpy.ActiveDirectory.Core.Filter.Expression;
@@ -26,13 +28,7 @@ namespace Cake.ActiveDirectory.Users {
         /// <param name="propertyValue">The property value to search.</param>
         /// <returns>User Principal Name</returns>
         public string FindUserPrincipalNameByProperty(string propertyName, string propertyValue) {
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
-            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.PrincipalName;
+            return FindUser(propertyName, propertyValue)?.PrincipalName;
         }
 
         /// <summary>
@@ -42,13 +38,7 @@ namespace Cake.ActiveDirectory.Users {
         /// <param name="propertyValue">The property value to search.</param>
         /// <returns>Distinguished Name</returns>
         public string FindDistinguishedNameByProperty(string propertyName, string propertyValue) {
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
-            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.DistinguishedName;
+            return FindUser(propertyName, propertyValue)?.DistinguishedName;
         }
 
         /// <summary>
@@ -59,16 +49,20 @@ namespace Cake.ActiveDirectory.Users {
         /// <param name="attributeName">The attribute name of the value to get.</param>
         /// <returns>Attribute Value</returns>
         public string FindAttributeValueByProperty(string propertyName, string propertyValue, string attributeName) {
+            if (string.IsNullOrWhiteSpace(attributeName)) {
+                throw new ArgumentNullException(nameof(attributeName));
+            }
+            return FindUser(propertyName, propertyValue)?.GetAttributeValue<string>(attributeName);
+        }
+
+        private UserObject FindUser(string propertyName, string propertyValue) {
             if (string.IsNullOrWhiteSpace(propertyName)) {
                 throw new ArgumentNullException(nameof(propertyName));
             }
             if (string.IsNullOrWhiteSpace(propertyValue)) {
                 throw new ArgumentNullException(nameof(propertyValue));
             }
-            if (string.IsNullOrWhiteSpace(attributeName)) {
-                throw new ArgumentNullException(nameof(attributeName));
-            }
-            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault()?.GetAttributeValue<string>(attributeName);
+            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault();
         }
     }
 }
