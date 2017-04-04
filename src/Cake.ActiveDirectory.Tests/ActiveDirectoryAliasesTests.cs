@@ -48,20 +48,6 @@ namespace Cake.ActiveDirectory.Tests {
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("ouDistinguishedName");
         }
-
-        public void Should_Throw_If_Settings_Are_Null() {
-            // Given
-            var context = Substitute.For<ICakeContext>();
-            var samAccountName = "test";
-            var ouDistinguishedName = "test";
-
-            // When
-            var result = Record.Exception(() => ActiveDirectoryAliases.AddUser(
-                context, samAccountName, ouDistinguishedName, null));
-
-            // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
-        }
     }
 
     public sealed class UpdateUserAliasesTests {

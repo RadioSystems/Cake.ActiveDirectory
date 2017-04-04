@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Cake.ActiveDirectory</id>
+    <version>0.0.0</version>
+    <authors>Radio Systems Corporation</authors>
+    <owners>Radio Systems Corporation</owners>
+    <description>Cake Addin for working with Active Directory.</description>
+    <summary>A set of aliases for Cake to help with working with Active Directory as part of a build.</summary>
+    <licenseUrl>https://github.com/RadioSystems/Cake.ActiveDirectory/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/RadioSystems/Cake.ActiveDirectory</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright (c) Radio Systems Corporation 2017 - Present</copyright>
+    <tags>Cake, Script, Build, Active Directory, AD, Addin</tags>
+  </metadata>
+  <files>
+    <file src="Cake.ActiveDirectory.dll" target="lib\net45" />
+    <file src="Cake.ActiveDirectory.pdb" target="lib\net45" />
+    <file src="Cake.ActiveDirectory.xml" target="lib\net45" />
+    <file src="Landpy.ActiveDirectory.dll" target="lib\net45" />
+    <file src="Landpy.ActiveDirectory.pdb" target="lib\net45" />
+    <file src="Landpy.ActiveDirectory.xml" target="lib\net45" />
+  </files>
+</package>

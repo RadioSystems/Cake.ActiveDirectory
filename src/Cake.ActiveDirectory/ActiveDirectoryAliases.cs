@@ -33,15 +33,6 @@ namespace Cake.ActiveDirectory {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (string.IsNullOrWhiteSpace(samAccountName)) {
-                throw new ArgumentNullException(nameof(samAccountName));
-            }
-            if (string.IsNullOrWhiteSpace(ouDistinguishedName)) {
-                throw new ArgumentNullException(nameof(ouDistinguishedName));
-            }
-            if (settings == null) {
-                throw new ArgumentNullException(nameof(settings));
-            }
            
             var userCreate = new UserCreate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
             userCreate.CreateUser(samAccountName, ouDistinguishedName, settings);
@@ -70,12 +61,6 @@ namespace Cake.ActiveDirectory {
             UserSettings settings) {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
-            }
-            if (string.IsNullOrWhiteSpace(attributeName)) {
-                throw new ArgumentNullException(nameof(attributeName));
-            }
-            if (string.IsNullOrWhiteSpace(attributeValue)) {
-                throw new ArgumentNullException(nameof(attributeValue));
             }
             if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
@@ -108,17 +93,16 @@ namespace Cake.ActiveDirectory {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
+            var userFind = CreateUserFind(settings);
+            return userFind.FindUserPrincipalNameByProperty(propertyName, propertyValue);
+        }
+
+
+        private static UserFind CreateUserFind(UserSettings settings) {
             if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
             }
-            var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
-            return userFind.FindUserPrincipalNameByProperty(propertyName, propertyValue);
+            return new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
         }
 
         /// <summary>
@@ -144,16 +128,7 @@ namespace Cake.ActiveDirectory {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
-            if (settings == null) {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            var userFind = CreateUserFind(settings);
             return userFind.FindDistinguishedNameByProperty(propertyName, propertyValue);
         }
 
@@ -181,19 +156,7 @@ namespace Cake.ActiveDirectory {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
-            if (string.IsNullOrWhiteSpace(attributeName)) {
-                throw new ArgumentNullException(nameof(attributeName));
-            }
-            if (settings == null) {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            var userFind = new UserFind(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            var userFind = CreateUserFind(settings);
             return userFind.FindAttributeValueByProperty(propertyName, propertyValue, attributeName);
         }
     }
