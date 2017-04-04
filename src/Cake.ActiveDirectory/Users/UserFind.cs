@@ -62,7 +62,7 @@ namespace Cake.ActiveDirectory.Users {
             if (string.IsNullOrWhiteSpace(propertyValue)) {
                 throw new ArgumentNullException(nameof(propertyValue));
             }
-            return UserObject.FindAll(_adOperator, new Contains(propertyName, propertyValue)).FirstOrDefault();
+            return UserObject.FindAll(_adOperator, new Is(propertyName, propertyValue)).FirstOrDefault();
         }
     }
 }
