@@ -303,5 +303,49 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
         }
     }
+
+    public sealed class DisableUserAliasesTests {
+        public void Should_Throw_If_Context_Is_Null() {
+            // Given
+            var propertyName = "test";
+            var propertyvalue = "test";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.DisableUser(
+                null, propertyName, propertyvalue, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
+        }
+
+        public void Should_Throw_If_PropertyName_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyValue = "test";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.DisableUser(
+                context, null, propertyValue, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
+        }
+
+        public void Should_Throw_If_PropertyValue_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var propertyName = "test";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.DisableUser(
+                context, propertyName, null, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
+        }
+    }
 }
 

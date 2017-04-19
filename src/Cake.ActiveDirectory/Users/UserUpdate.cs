@@ -9,14 +9,11 @@ namespace Cake.ActiveDirectory.Users {
     /// The User service for working with Active Directory Users
     /// </summary>
     public sealed class UserUpdate : ActiveDirectoryBase<UserSettings> {
-        private readonly IADOperator _adOperator;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserUpdate"/> class.
         /// </summary>
         /// <param name="adOperator">The Active Directory.</param>
-        public UserUpdate(IADOperator adOperator) {
-            _adOperator = adOperator;
+        public UserUpdate(IADOperator adOperator) : base(adOperator) {
         }
 
         /// <summary>
