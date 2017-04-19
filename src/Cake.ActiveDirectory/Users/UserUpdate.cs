@@ -39,5 +39,24 @@ namespace Cake.ActiveDirectory.Users {
 
             user.Save();
         }
+
+        /// <summary>
+        /// Updates the Organizational Unit the user is in.
+        /// </summary>
+        /// <param name="propertyName">The name of the preperty to use to search.</param>
+        /// <param name="propertyValue">The value of the property to search using.</param>
+        /// <param name="organizationalUnit">The new organizational unit.</param>
+        public void UpdateOrganizationUnit(string propertyName, string propertyValue, string organizationalUnit) {
+            if (string.IsNullOrWhiteSpace(organizationalUnit)) {
+                throw new ArgumentNullException(nameof(organizationalUnit));
+            }
+            var user = FindUser(propertyName, propertyValue);
+            var orgUnit = OrganizationalUnitObject.FindOneByOU(_adOperator, organizationalUnit);
+            if(orgUnit == null) {
+                throw new ArgumentNullException(nameof(organizationalUnit), "OU was not found in Active Directory!");
+            }
+            user.ChangeOrganizationalUnit(orgUnit);
+            user.Save();
+        }
     }
 }

@@ -62,11 +62,7 @@ namespace Cake.ActiveDirectory {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (settings == null) {
-                throw new ArgumentNullException(nameof(settings));
-            }
-
-            var userUpdate = new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            var userUpdate = CreateUserUpdate(settings);
             userUpdate.UpdateUser(attributeName, attributeValue, settings);
         }
 
@@ -188,6 +184,41 @@ namespace Cake.ActiveDirectory {
 
             var userDisable = new UserDisable(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
             userDisable.DisableUser(propertyName, propertyValue);
+        }
+
+        /// <summary>
+        /// Updates a user's oraganization unit, given the specified properties.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     UpdateOrganizationUnit("employeeId", "1234", "test", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyName">The name of the property to search by.</param>
+        /// <param name="propertyValue">The value of the property to search using.</param>
+        /// <param name="organizationalUnit">The new organizational unit.</param>
+        /// <param name="settings">The user attribute settings.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("UpdateUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static void UpdateOrganizationUnit(this ICakeContext context, string propertyName, string propertyValue, string organizationalUnit,
+            UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            var userUpdate = CreateUserUpdate(settings);
+            userUpdate.UpdateOrganizationUnit(propertyName, propertyValue, organizationalUnit);
+        }
+
+        private static UserUpdate CreateUserUpdate(UserSettings settings) {
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            return new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
         }
     }
 }
