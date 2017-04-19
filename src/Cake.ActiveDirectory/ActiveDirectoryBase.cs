@@ -10,7 +10,8 @@ namespace Cake.ActiveDirectory {
     /// The Active Directory command base class.
     /// </summary>
     public abstract class ActiveDirectoryBase<TSettings> where TSettings : ActiveDirectorySettings  {
-        protected readonly IADOperator _adOperator;
+
+        internal readonly IADOperator _adOperator;
 
         /// <summary>
         /// Intializes a new instance of the <see cref="ActiveDirectoryBase{TSettings}"/> class;
@@ -72,7 +73,7 @@ namespace Cake.ActiveDirectory {
             return user;
         }
 
-        protected UserObject FindUser(string propertyName, string propertyValue) {
+        internal UserObject FindUser(string propertyName, string propertyValue) {
             if (string.IsNullOrWhiteSpace(propertyName)) {
                 throw new ArgumentNullException(nameof(propertyName));
             }
