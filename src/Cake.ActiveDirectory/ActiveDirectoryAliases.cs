@@ -97,7 +97,6 @@ namespace Cake.ActiveDirectory {
             return userFind.FindUserPrincipalNameByProperty(propertyName, propertyValue);
         }
 
-
         private static UserFind CreateUserFind(UserSettings settings) {
             if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
@@ -158,6 +157,37 @@ namespace Cake.ActiveDirectory {
             }
             var userFind = CreateUserFind(settings);
             return userFind.FindAttributeValueByProperty(propertyName, propertyValue, attributeName);
+        }
+
+        /// <summary>
+        /// Disables a user account given the specified properties.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     DisableUser("employeeId", "1234", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyName">The name of the property to search by.</param>
+        /// <param name="propertyValue">The value of the property to search using.</param>
+        /// <param name="settings">The user attribute settings.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("UpdateUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static void DisableUser(this ICakeContext context, string propertyName, string propertyValue,
+            UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            var userDisable = new UserDisable(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            userDisable.DisableUser(propertyName, propertyValue);
         }
     }
 }

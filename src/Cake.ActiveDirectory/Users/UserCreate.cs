@@ -7,14 +7,12 @@ namespace Cake.ActiveDirectory.Users {
     /// The User create class for creating Active Directory Users.
     /// </summary>
     public sealed class UserCreate : ActiveDirectoryBase<UserSettings> {
-        private readonly IADOperator _adOperator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserCreate"/> class.
         /// </summary>
         /// <param name="adOperator">The Active Directory.</param>
-        public UserCreate(IADOperator adOperator) {
-            _adOperator = adOperator;
+        public UserCreate(IADOperator adOperator) :base(adOperator) {
         }
 
         /// <summary>

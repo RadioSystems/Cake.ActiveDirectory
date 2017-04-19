@@ -11,14 +11,11 @@ namespace Cake.ActiveDirectory.Users {
     /// The User Find class for searching for Active Directory Users.
     /// </summary>
     public sealed class UserFind : ActiveDirectoryBase<UserSettings> {
-        private readonly IADOperator _adOperator;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserFind"/> class.
         /// </summary>
         /// <param name="adOperator">The Active Directory.</param>
-        public UserFind(IADOperator adOperator) {
-            _adOperator = adOperator;
+        public UserFind(IADOperator adOperator) : base(adOperator){
         }
 
         /// <summary>
@@ -53,16 +50,6 @@ namespace Cake.ActiveDirectory.Users {
                 throw new ArgumentNullException(nameof(attributeName));
             }
             return FindUser(propertyName, propertyValue)?.GetAttributeValue<string>(attributeName);
-        }
-
-        private UserObject FindUser(string propertyName, string propertyValue) {
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
-            return UserObject.FindAll(_adOperator, new Is(propertyName, propertyValue)).FirstOrDefault();
-        }
+        }       
     }
 }
