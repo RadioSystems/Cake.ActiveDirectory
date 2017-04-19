@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using Cake.ActiveDirectory.Tests.Fixture;
 using Landpy.ActiveDirectory.Core;
 using NSubstitute;
 using Should;
-using Should.Core.Assertions;
+using Xunit;
 
 namespace Cake.ActiveDirectory.Tests {
     public sealed class UserCreateTests {
+        [Fact]
         public void Should_Throw_If_Settings_Are_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
@@ -20,7 +20,7 @@ namespace Cake.ActiveDirectory.Tests {
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
         }
-
+        [Fact]
         public void Should_Throw_If_SAMAccountName_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
@@ -33,7 +33,7 @@ namespace Cake.ActiveDirectory.Tests {
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("samAccountName");
         }
-
+        [Fact]
         public void Should_Throw_If_OUDistinguishedName_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();

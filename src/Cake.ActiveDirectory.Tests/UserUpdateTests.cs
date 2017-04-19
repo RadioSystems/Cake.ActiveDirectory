@@ -3,14 +3,12 @@ using Cake.ActiveDirectory.Tests.Fixture;
 using Landpy.ActiveDirectory.Core;
 using NSubstitute;
 using Should;
-using Should.Core.Assertions;
+using Xunit;
 
-namespace Cake.ActiveDirectory.Tests
-{
-    public sealed class UserUpdateTests
-    {
-        public void Should_Throw_If_Settings_Are_Null()
-        {
+namespace Cake.ActiveDirectory.Tests {
+    public sealed class UserUpdateTests {
+        [Fact]
+        public void Should_Throw_If_Settings_Are_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
             var fixture = new UserUpdateFixture(adOperator);
@@ -22,9 +20,8 @@ namespace Cake.ActiveDirectory.Tests
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
         }
-
-        public void Should_Throw_If_AttributeName_Is_Null()
-        {
+        [Fact]
+        public void Should_Throw_If_AttributeName_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
             var fixture = new UserUpdateFixture(adOperator);
@@ -36,9 +33,8 @@ namespace Cake.ActiveDirectory.Tests
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeName");
         }
-
-        public void Should_Throw_If_AttributeValue_Is_Null()
-        {
+        [Fact]
+        public void Should_Throw_If_AttributeValue_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
             var fixture = new UserUpdateFixture(adOperator);
