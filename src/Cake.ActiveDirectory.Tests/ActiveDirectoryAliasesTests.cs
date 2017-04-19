@@ -3,10 +3,11 @@ using Cake.ActiveDirectory.Users;
 using Cake.Core;
 using NSubstitute;
 using Should;
-using Should.Core.Assertions;
+using Xunit;
 
 namespace Cake.ActiveDirectory.Tests {
     public sealed class AddUserAliasesTests {
+        [Fact]
         public void Should_Throw_If_Context_Is_Null() {
             // Given
             var samAccountName = "test";
@@ -21,6 +22,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
         }
 
+        [Fact]
         public void Should_Throw_If_samAccountName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -35,6 +37,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("samAccountName");
         }
 
+        [Fact]
         public void Should_Throw_If_OUDistinguishedName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -51,6 +54,7 @@ namespace Cake.ActiveDirectory.Tests {
     }
 
     public sealed class UpdateUserAliasesTests {
+        [Fact]
         public void Should_Throw_If_Context_Is_Null()
         {
             // Given
@@ -66,6 +70,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
         }
 
+        [Fact]
         public void Should_Throw_If_AttributeName_Is_Null()
         {
             // Given
@@ -81,6 +86,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeName");
         }
 
+        [Fact]
         public void Should_Throw_If_AttributeValue_Is_Null()
         {
             // Given
@@ -96,6 +102,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeValue");
         }
 
+        [Fact]
         public void Should_Throw_If_Settings_Are_Null()
         {
             // Given
@@ -113,6 +120,7 @@ namespace Cake.ActiveDirectory.Tests {
     }
 
     public sealed class FindUserPrincipalNameByProxyAddressAliasesTests {
+        [Fact]
         public void Should_Throw_If_Context_Is_Null() {
             // Given
             var propertyName = "proxyAddresses";
@@ -127,6 +135,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -141,6 +150,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyValue_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -154,7 +164,8 @@ namespace Cake.ActiveDirectory.Tests {
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
         }
-        
+
+        [Fact]
         public void Should_Throw_If_Settings_Are_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -171,6 +182,7 @@ namespace Cake.ActiveDirectory.Tests {
     }
 
     public sealed class FindDistinguishedNameByProxyAddressAliasesTests {
+        [Fact]
         public void Should_Throw_If_Context_Is_Null() {
             // Given
             var propertyName = "proxyAddresses";
@@ -185,6 +197,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -199,6 +212,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyValue_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -213,6 +227,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
         }
 
+        [Fact]
         public void Should_Throw_If_Settings_Are_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -229,6 +244,7 @@ namespace Cake.ActiveDirectory.Tests {
     }
 
     public sealed class FindAttributeValueByProxyAddressAliasesTests {
+        [Fact]
         public void Should_Throw_If_Context_Is_Null() {
             // Given
             var propertyName = "proxyAddresses";
@@ -244,6 +260,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -259,6 +276,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyValue_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -274,6 +292,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
         }
 
+        [Fact]
         public void Should_Throw_If_AttributeName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -289,6 +308,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeName");
         }
 
+        [Fact]
         public void Should_Throw_If_Settings_Are_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -305,6 +325,7 @@ namespace Cake.ActiveDirectory.Tests {
     }
 
     public sealed class DisableUserAliasesTests {
+        [Fact]
         public void Should_Throw_If_Context_Is_Null() {
             // Given
             var propertyName = "test";
@@ -319,6 +340,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
@@ -333,6 +355,7 @@ namespace Cake.ActiveDirectory.Tests {
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
         }
 
+        [Fact]
         public void Should_Throw_If_PropertyValue_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();

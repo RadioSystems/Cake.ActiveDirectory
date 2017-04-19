@@ -2,15 +2,12 @@
 using Landpy.ActiveDirectory.Core;
 using NSubstitute;
 using Should;
-using Should.Core.Assertions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 
 namespace Cake.ActiveDirectory.Tests {
     public sealed class UserDisableTests {
+        [Fact]
         public void Should_Throw_If_AttributeName_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
@@ -23,7 +20,7 @@ namespace Cake.ActiveDirectory.Tests {
             // Then
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
         }
-
+        [Fact]
         public void Should_Throw_If_AttributeValue_Is_Null() {
             // Given
             var adOperator = Substitute.For<IADOperator>();
