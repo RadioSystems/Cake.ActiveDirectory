@@ -110,5 +110,21 @@ namespace Cake.ActiveDirectory.Tests {
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeName");
             }
         }
+
+        public sealed class FindByOrganizationUnit {
+            [Fact]
+            public void Should_Throw_If_Organizational_Unit_Is_Null() {
+                // Given
+                var adOperator = Substitute.For<IADOperator>();
+                var fixture = new UserFindFixture(adOperator);
+                fixture.OrganizationalUnit = null;
+
+                // When
+                var result = Record.Exception(() => fixture.FindByOrganizationUnit());
+
+                // Then
+                result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("organizationalUnit");
+            }
+        }
     }
 }

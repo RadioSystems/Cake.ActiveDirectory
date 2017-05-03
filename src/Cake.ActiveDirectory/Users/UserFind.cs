@@ -50,6 +50,18 @@ namespace Cake.ActiveDirectory.Users {
                 throw new ArgumentNullException(nameof(attributeName));
             }
             return FindUser(propertyName, propertyValue)?.GetAttributeValue<string>(attributeName);
-        }       
+        }
+
+        /// <summary>
+        /// Finds all users in an organization unit.
+        /// </summary>
+        /// <param name="organizationalUnit">Distinguished name of OU.</param>
+        /// <returns>List of UserObjects.</returns>
+        public IList<UserObject> FindByOrganizationUnit(string organizationalUnit) {
+            if (string.IsNullOrWhiteSpace(organizationalUnit)) {
+                throw new ArgumentNullException(nameof(organizationalUnit));
+            }
+            return OrganizationalUnitObject.FindOneByOU(_adOperator, "Disabled Accounts").Users;
+        }
     }
 }
