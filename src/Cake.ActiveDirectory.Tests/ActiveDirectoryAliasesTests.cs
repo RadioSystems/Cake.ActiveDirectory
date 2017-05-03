@@ -23,7 +23,7 @@ namespace Cake.ActiveDirectory.Tests {
         }
 
         [Fact]
-        public void Should_Throw_If_samAccountName_Is_Null() {
+        public void Should_Throw_If_SamAccountName_Is_Null() {
             // Given
             var context = Substitute.For<ICakeContext>();
             var ouDistinguishedName = "test";
@@ -449,6 +449,50 @@ namespace Cake.ActiveDirectory.Tests {
                 // Then
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
             }
+        }
+    }
+
+    public sealed class DeleteUserAliasesTests {
+        [Fact]
+        public void Should_Throw_If_Context_Is_Null() {
+            // Given
+            var userPrincipalName = "test@test.com";
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.DeleteUser(
+                null, userPrincipalName, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("context");
+        }
+
+        [Fact]
+        public void Should_Throw_If_UserPrincipalName_Is_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var settings = new UserSettings();
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.DeleteUser(
+                context, null, settings));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("userPrincipalName");
+        }
+
+        [Fact]
+        public void Should_Throw_If_Settings_Are_Null() {
+            // Given
+            var context = Substitute.For<ICakeContext>();
+            var userPrincipalName = "test@test.com";
+
+            // When
+            var result = Record.Exception(() => ActiveDirectoryAliases.DeleteUser(
+                context, userPrincipalName, null));
+
+            // Then
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("settings");
         }
     }
 }
