@@ -12,8 +12,7 @@ namespace Cake.ActiveDirectory.Users {
         /// Initializes a new instance of the <see cref="UserCreate"/> class.
         /// </summary>
         /// <param name="adOperator">The Active Directory.</param>
-        public UserCreate(IADOperator adOperator) :base(adOperator) {
-        }
+        public UserCreate(IADOperator adOperator) : base(adOperator) { }
 
         /// <summary>
         /// Creates an Active Directory user given the specified properties.

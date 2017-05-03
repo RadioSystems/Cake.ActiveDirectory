@@ -220,5 +220,34 @@ namespace Cake.ActiveDirectory {
             }
             return new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
         }
+
+        /// <summary>
+        /// Creates a new user in the specified active directory.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     DeleteUser("cake-user@cake.net", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net"});
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="userPrincipalName">The user principal name.</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("CreateUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static void DeleteUser(this ICakeContext context, string userPrincipalName, 
+            UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            var userDelete = new UserDelete(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            userDelete.DeleteUser(userPrincipalName);
+        }
     }
 }
