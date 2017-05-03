@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cake.ActiveDirectory.Users;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Landpy.ActiveDirectory.Core;
+using Landpy.ActiveDirectory.Entity.Object;
 
 namespace Cake.ActiveDirectory {
     /// <summary>
@@ -222,7 +224,7 @@ namespace Cake.ActiveDirectory {
         }
 
         /// <summary>
-        /// Creates a new user in the specified active directory.
+        /// Deletes user in the specified active directory.
         /// </summary>
         /// <example>
         /// <code>
@@ -248,6 +250,33 @@ namespace Cake.ActiveDirectory {
             }
             var userDelete = new UserDelete(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
             userDelete.DeleteUser(userPrincipalName);
+        }
+
+        /// <summary>
+        /// Finds all users in an organization unit.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     var users = FindByOrganizationUnit("Cake Users", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="organizationalUnit">Distinguished name of OU.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>List of UserObjects.</returns>
+        [CakeMethodAlias]
+        [CakeAliasCategory("FindUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        [CakeNamespaceImport("Landpy.ActiveDirectory.Entity.Object")]
+        public static IList<UserObject> FindByOrganizationUnit(this ICakeContext context, string organizationalUnit, UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            var userFind = CreateUserFind(settings);
+            return userFind.FindByOrganizationUnit(organizationalUnit);
         }
     }
 }
