@@ -3,11 +3,12 @@ using System;
 using Cake.ActiveDirectory.Tests.Fixture;
 using Landpy.ActiveDirectory.Core;
 using Should;
-using Should.Core.Assertions;
+using Xunit;
 
 namespace Cake.ActiveDirectory.Tests {
     public sealed class UserFindTests {
         public sealed class FindUserPrincpalTests {
+            [Fact]
             public void Should_Throw_If_PropertyName_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -21,6 +22,7 @@ namespace Cake.ActiveDirectory.Tests {
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
             }
 
+            [Fact]
             public void Should_Throw_If_PropertyValue_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -36,6 +38,7 @@ namespace Cake.ActiveDirectory.Tests {
         }
 
         public sealed class FindDistinguishedNameTests {
+            [Fact]
             public void Should_Throw_If_PropertyName_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -49,6 +52,7 @@ namespace Cake.ActiveDirectory.Tests {
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
             }
 
+            [Fact]
             public void Should_Throw_If_PropertyValue_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -64,6 +68,7 @@ namespace Cake.ActiveDirectory.Tests {
         }
 
         public sealed class FindAttributeValueTests {
+            [Fact]
             public void Should_Throw_If_PropertyName_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -77,6 +82,7 @@ namespace Cake.ActiveDirectory.Tests {
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyName");
             }
 
+            [Fact]
             public void Should_Throw_If_PropertyValue_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -90,6 +96,7 @@ namespace Cake.ActiveDirectory.Tests {
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("propertyValue");
             }
 
+            [Fact]
             public void Should_Throw_If_AttributeName_Is_Null() {
                 // Given
                 var adOperator = Substitute.For<IADOperator>();
@@ -101,6 +108,22 @@ namespace Cake.ActiveDirectory.Tests {
 
                 // Then
                 result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("attributeName");
+            }
+        }
+
+        public sealed class FindByOrganizationUnit {
+            [Fact]
+            public void Should_Throw_If_Organizational_Unit_Is_Null() {
+                // Given
+                var adOperator = Substitute.For<IADOperator>();
+                var fixture = new UserFindFixture(adOperator);
+                fixture.OrganizationalUnit = null;
+
+                // When
+                var result = Record.Exception(() => fixture.FindByOrganizationUnit());
+
+                // Then
+                result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("organizationalUnit");
             }
         }
     }

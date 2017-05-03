@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cake.ActiveDirectory.Users;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Landpy.ActiveDirectory.Core;
+using Landpy.ActiveDirectory.Entity.Object;
 
 namespace Cake.ActiveDirectory {
     /// <summary>
@@ -62,11 +64,7 @@ namespace Cake.ActiveDirectory {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
-            if (settings == null) {
-                throw new ArgumentNullException(nameof(settings));
-            }
-
-            var userUpdate = new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            var userUpdate = CreateUserUpdate(settings);
             userUpdate.UpdateUser(attributeName, attributeValue, settings);
         }
 
@@ -96,7 +94,6 @@ namespace Cake.ActiveDirectory {
             var userFind = CreateUserFind(settings);
             return userFind.FindUserPrincipalNameByProperty(propertyName, propertyValue);
         }
-
 
         private static UserFind CreateUserFind(UserSettings settings) {
             if (settings == null) {
@@ -158,6 +155,128 @@ namespace Cake.ActiveDirectory {
             }
             var userFind = CreateUserFind(settings);
             return userFind.FindAttributeValueByProperty(propertyName, propertyValue, attributeName);
+        }
+
+        /// <summary>
+        /// Disables a user account given the specified properties.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     DisableUser("employeeId", "1234", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyName">The name of the property to search by.</param>
+        /// <param name="propertyValue">The value of the property to search using.</param>
+        /// <param name="settings">The user attribute settings.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("UpdateUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static void DisableUser(this ICakeContext context, string propertyName, string propertyValue,
+            UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            var userDisable = new UserDisable(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            userDisable.DisableUser(propertyName, propertyValue);
+        }
+
+        /// <summary>
+        /// Updates a user's oraganization unit, given the specified properties.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     UpdateOrganizationUnit("employeeId", "1234", "test", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyName">The name of the property to search by.</param>
+        /// <param name="propertyValue">The value of the property to search using.</param>
+        /// <param name="organizationalUnit">The new organizational unit.</param>
+        /// <param name="settings">The user attribute settings.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("UpdateUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static void UpdateOrganizationUnit(this ICakeContext context, string propertyName, string propertyValue, string organizationalUnit,
+            UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            var userUpdate = CreateUserUpdate(settings);
+            userUpdate.UpdateOrganizationUnit(propertyName, propertyValue, organizationalUnit);
+        }
+
+        private static UserUpdate CreateUserUpdate(UserSettings settings) {
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            return new UserUpdate(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+        }
+
+        /// <summary>
+        /// Deletes user in the specified active directory.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     DeleteUser("cake-user@cake.net", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net"});
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="userPrincipalName">The user principal name.</param>
+        /// <param name="settings">The settings.</param>
+        [CakeMethodAlias]
+        [CakeAliasCategory("CreateUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        public static void DeleteUser(this ICakeContext context, string userPrincipalName, 
+            UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            var userDelete = new UserDelete(new ADOperator(settings.LoginName, settings.Password, settings.DomainName));
+            userDelete.DeleteUser(userPrincipalName);
+        }
+
+        /// <summary>
+        /// Finds all users in an organization unit.
+        /// </summary>
+        /// <example>
+        /// <code>
+        ///     var users = FindByOrganizationUnit("Cake Users", new UserSettings { 
+        ///         LoginName = "domainAdmin", 
+        ///         Password = "adminPassword", 
+        ///         DomainName = "Cake.net" });
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <param name="organizationalUnit">Distinguished name of OU.</param>
+        /// <param name="settings">The settings.</param>
+        /// <returns>List of UserObjects.</returns>
+        [CakeMethodAlias]
+        [CakeAliasCategory("FindUser")]
+        [CakeNamespaceImport("Cake.ActiveDirectory.Users")]
+        [CakeNamespaceImport("Landpy.ActiveDirectory.Entity.Object")]
+        public static IList<UserObject> FindByOrganizationUnit(this ICakeContext context, string organizationalUnit, UserSettings settings) {
+            if (context == null) {
+                throw new ArgumentNullException(nameof(context));
+            }
+            var userFind = CreateUserFind(settings);
+            return userFind.FindByOrganizationUnit(organizationalUnit);
         }
     }
 }

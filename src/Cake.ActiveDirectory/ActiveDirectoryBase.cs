@@ -1,11 +1,27 @@
 ﻿using Cake.ActiveDirectory.Users;
+using Landpy.ActiveDirectory.Core;
+using Landpy.ActiveDirectory.Core.Filter.Expression;
 using Landpy.ActiveDirectory.Entity.Object;
+using System;
+using System.Collections;
+using System.Linq;
 
 namespace Cake.ActiveDirectory {
     /// <summary>
     /// The Active Directory command base class.
     /// </summary>
     public abstract class ActiveDirectoryBase<TSettings> where TSettings : ActiveDirectorySettings  {
+
+        internal readonly IADOperator _adOperator;
+
+        /// <summary>
+        /// Intializes a new instance of the <see cref="ActiveDirectoryBase{TSettings}"/> class;
+        /// </summary>
+        /// <param name="adOperator">The Active Directory</param>
+        protected ActiveDirectoryBase(IADOperator adOperator) {
+            _adOperator = adOperator;
+        }
+        
         /// <summary>
         /// Adds user settings to the User Object.
         /// </summary>
@@ -56,6 +72,16 @@ namespace Cake.ActiveDirectory {
             user.SetAttributeIfNotNull("homeDrive", settings.HomeDrive);
             user.IsMustChangePwdNextLogon = settings.MustChangePasswordNextLogon;
             return user;
+        }
+
+        internal UserObject FindUser(string propertyName, string propertyValue) {
+            if (string.IsNullOrWhiteSpace(propertyName)) {
+                throw new ArgumentNullException(nameof(propertyName));
+            }
+            if (string.IsNullOrWhiteSpace(propertyValue)) {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+            return UserObject.FindAll(_adOperator, new Is(propertyName, propertyValue)).FirstOrDefault();
         }
     }
 }

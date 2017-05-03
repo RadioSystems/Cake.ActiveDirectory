@@ -11,14 +11,11 @@ namespace Cake.ActiveDirectory.Users {
     /// The User Find class for searching for Active Directory Users.
     /// </summary>
     public sealed class UserFind : ActiveDirectoryBase<UserSettings> {
-        private readonly IADOperator _adOperator;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserFind"/> class.
         /// </summary>
         /// <param name="adOperator">The Active Directory.</param>
-        public UserFind(IADOperator adOperator) {
-            _adOperator = adOperator;
+        public UserFind(IADOperator adOperator) : base(adOperator){
         }
 
         /// <summary>
@@ -55,14 +52,16 @@ namespace Cake.ActiveDirectory.Users {
             return FindUser(propertyName, propertyValue)?.GetAttributeValue<string>(attributeName);
         }
 
-        private UserObject FindUser(string propertyName, string propertyValue) {
-            if (string.IsNullOrWhiteSpace(propertyName)) {
-                throw new ArgumentNullException(nameof(propertyName));
+        /// <summary>
+        /// Finds all users in an organization unit.
+        /// </summary>
+        /// <param name="organizationalUnit">Distinguished name of OU.</param>
+        /// <returns>List of UserObjects.</returns>
+        public IList<UserObject> FindByOrganizationUnit(string organizationalUnit) {
+            if (string.IsNullOrWhiteSpace(organizationalUnit)) {
+                throw new ArgumentNullException(nameof(organizationalUnit));
             }
-            if (string.IsNullOrWhiteSpace(propertyValue)) {
-                throw new ArgumentNullException(nameof(propertyValue));
-            }
-            return UserObject.FindAll(_adOperator, new Is(propertyName, propertyValue)).FirstOrDefault();
+            return OrganizationalUnitObject.FindOneByOU(_adOperator, "Disabled Accounts").Users;
         }
     }
 }

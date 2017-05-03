@@ -59,6 +59,8 @@
     <Compile Include="ActiveDirectoryBase.cs" />
     <Compile Include="ActiveDirectorySettings.cs" />
     <Compile Include="Users\ExtensionMethods.cs" />
+    <Compile Include="Users\UserDelete.cs" />
+    <Compile Include="Users\UserDisable.cs" />
     <Compile Include="Users\UserFind.cs" />
     <Compile Include="Users\UserUpdate.cs" />
     <Compile Include="Users\UserSettings.cs" />

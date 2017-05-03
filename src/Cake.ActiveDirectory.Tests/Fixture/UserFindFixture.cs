@@ -1,5 +1,6 @@
 ﻿using Cake.ActiveDirectory.Users;
 using Landpy.ActiveDirectory.Core;
+using Landpy.ActiveDirectory.Entity.Attribute.Name;
 
 namespace Cake.ActiveDirectory.Tests.Fixture {
     internal sealed class UserFindFixture {
@@ -8,12 +9,14 @@ namespace Cake.ActiveDirectory.Tests.Fixture {
         public string PropertyName { get; set; }
         public string PropertyValue { get; set; }
         public string AttributeName { get; set; }
+        public string OrganizationalUnit { get; set; }
 
         public UserFindFixture(IADOperator adOperator) {
             _userFind = new UserFind(adOperator);
             PropertyName = "proxyAddresses";
             PropertyValue = "jdoe@example.com";
             AttributeName = "distinguishedName";
+            OrganizationalUnit = "CakeUsers";
             Settings = new UserSettings { LoginName = "admin", Password = "admin", DomainName = "test" };
         }
 
@@ -27,6 +30,10 @@ namespace Cake.ActiveDirectory.Tests.Fixture {
 
         public void FindAttributeValueByProperty() {
             _userFind.FindAttributeValueByProperty(PropertyName, PropertyValue, AttributeName);
+        }
+
+        public void FindByOrganizationUnit() {
+            _userFind.FindByOrganizationUnit(OrganizationalUnit);
         }
     }
 }
