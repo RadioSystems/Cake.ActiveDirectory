@@ -3,12 +3,13 @@
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Cake.ActiveDirectory</id>
     <version>0.0.0</version>
-    <authors>Radio Systems Corporation</authors>
-    <owners>Radio Systems Corporation</owners>
+    <authors>RadioSystems Corporation</authors>
+    <owners>RadioSystems Corporation</owners>
     <description>Cake Addin for working with Active Directory.</description>
     <summary>A set of aliases for Cake to help with working with Active Directory as part of a build.</summary>
     <licenseUrl>https://github.com/RadioSystems/Cake.ActiveDirectory/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/RadioSystems/Cake.ActiveDirectory</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>Copyright (c) Radio Systems Corporation 2017 - Present</copyright>
     <tags>Cake, Script, Build, Active Directory, AD, Addin</tags>
