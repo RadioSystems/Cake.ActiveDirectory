@@ -35,8 +35,8 @@
     <DocumentationFile>bin\Release\Cake.ActiveDirectory.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cake.Core, Version=0.22.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cake.Core.0.22.0\lib\net46\Cake.Core.dll</HintPath>
+    <Reference Include="Cake.Core, Version=0.33.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cake.Core.0.33.0\lib\net46\Cake.Core.dll</HintPath>
     </Reference>
     <Reference Include="Landpy.ActiveDirectory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4769fd3a76ed42d0, processorArchitecture=MSIL">
       <HintPath>..\packages\Landpy.ActiveDirectory.1.0.0.6\lib\Landpy.ActiveDirectory.dll</HintPath>
@@ -71,7 +71,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
