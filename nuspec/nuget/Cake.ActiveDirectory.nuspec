@@ -7,7 +7,8 @@
     <owners>RadioSystems Corporation</owners>
     <description>Cake Addin for working with Active Directory.</description>
     <summary>A set of aliases for Cake to help with working with Active Directory as part of a build.</summary>
-    <licenseUrl>https://github.com/RadioSystems/Cake.ActiveDirectory/blob/master/LICENSE</licenseUrl>
+    <license type="expression">Apache-2.0</license>
+    <repository type="git" url="https://github.com/RadioSystems/Cake.ActiveDirectory.git"/>
     <projectUrl>https://github.com/RadioSystems/Cake.ActiveDirectory</projectUrl>
     <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,11 +16,11 @@
     <tags>Cake, Script, Build, Active Directory, AD, Addin</tags>
   </metadata>
   <files>
-    <file src="Cake.ActiveDirectory.dll" target="lib\net45" />
-    <file src="Cake.ActiveDirectory.pdb" target="lib\net45" />
-    <file src="Cake.ActiveDirectory.xml" target="lib\net45" />
-    <file src="Landpy.ActiveDirectory.dll" target="lib\net45" />
-    <file src="Landpy.ActiveDirectory.pdb" target="lib\net45" />
-    <file src="Landpy.ActiveDirectory.xml" target="lib\net45" />
+    <file src="Cake.ActiveDirectory.dll" target="lib\net461" />
+    <file src="Cake.ActiveDirectory.pdb" target="lib\net461" />
+    <file src="Cake.ActiveDirectory.xml" target="lib\net461" />
+    <file src="Landpy.ActiveDirectory.dll" target="lib\net461" />
+    <file src="Landpy.ActiveDirectory.pdb" target="lib\net461" />
+    <file src="Landpy.ActiveDirectory.xml" target="lib\net461" />
   </files>
 </package>
