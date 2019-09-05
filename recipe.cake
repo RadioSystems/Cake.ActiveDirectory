@@ -8,7 +8,8 @@ BuildParameters.SetParameters(context: Context,
                             title: "Cake.ActiveDirectory",
                             repositoryOwner: "RadioSystems",
                             repositoryName: "Cake.ActiveDirectory",
-                            appVeyorAccountName: "RadioSystems");
+                            appVeyorAccountName: "RadioSystems",
+                            shouldRunGitVersion: true);
 
 BuildParameters.PrintParameters(Context);
 
