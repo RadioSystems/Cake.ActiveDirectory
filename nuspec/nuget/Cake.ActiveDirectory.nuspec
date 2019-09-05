@@ -16,11 +16,11 @@
     <tags>Cake, Script, Build, Active Directory, AD, Addin</tags>
   </metadata>
   <files>
-    <file src="Cake.ActiveDirectory.dll" target="lib\net45" />
-    <file src="Cake.ActiveDirectory.pdb" target="lib\net45" />
-    <file src="Cake.ActiveDirectory.xml" target="lib\net45" />
-    <file src="Landpy.ActiveDirectory.dll" target="lib\net45" />
-    <file src="Landpy.ActiveDirectory.pdb" target="lib\net45" />
-    <file src="Landpy.ActiveDirectory.xml" target="lib\net45" />
+    <file src="Cake.ActiveDirectory.dll" target="lib\net461" />
+    <file src="Cake.ActiveDirectory.pdb" target="lib\net461" />
+    <file src="Cake.ActiveDirectory.xml" target="lib\net461" />
+    <file src="Landpy.ActiveDirectory.dll" target="lib\net461" />
+    <file src="Landpy.ActiveDirectory.pdb" target="lib\net461" />
+    <file src="Landpy.ActiveDirectory.xml" target="lib\net461" />
   </files>
 </package>
